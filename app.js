@@ -23,12 +23,47 @@ client.on('message', msg => {
     if (msg.content === '?hwstats') {
         if(msg.author.id === process.env.ownerId) {
             osutils.cpuUsage((v) => {
-                msg.reply('Platform: ' + os.platform() + 'CPU Usage (%): ' + v);
+		let usedMem = os.freemem() / 1000000;
+		let totalMem = os.totalmem() / 1000000;
+		client.channels.get('459510497016938507').send({embed:{
+			color: 3447003,
+			title: "Hardware Stats",
+			fields:[
+				{
+					name: "System On Chip",
+					value: "Raspberry Pi 3 Model B",
+				},
+				{
+					name: "Operating System",
+					value: "Raspbian Lite",
+				},
+				{
+					name: "Platform",
+					value: os.platform().replace('l', 'L'),
+				},
+				{
+					name: "Uptime",
+					value: os.uptime() + " Seconds",
+				},
+				{
+					name: "CPU Model",
+					value: os.cpus()[0].model,
+				},
+				{
+					name: "CPU Usage",
+					value: v.toFixed(3) + '%',
+				},
+				{
+					name: "RAM Usage",
+					value: usedMem.toFixed(2) + 'MB / ' + totalMem.toFixed(2) + 'MB',
+				},
+			]
+		}});
             });
         }
     }
 
-});  
+});
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
