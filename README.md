@@ -1,0 +1,1 @@
+A discord bot I wrote to help manage my personal Discord server :)

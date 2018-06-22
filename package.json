@@ -1,0 +1,19 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathaniel Suchy",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "discord.js": "^11.3.2",
+    "dotenv": "^6.0.0",
+    "mongoose": "^5.1.6",
+    "os-utils": "0.0.14"
+  }
+}
