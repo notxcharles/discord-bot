@@ -29,7 +29,7 @@ client.on('message', msg => {
 		Command requested by Каппа#7296
 	*/
 	if (msg.content === '?sexyman') {
-		client.channels.get(msg.channel).send(`https://i.imgur.com/YNqBodQ.png`);
+		client.channels.get(msg.channel.id).send(`https://i.imgur.com/YNqBodQ.png`);
 	}
 
 	/*
