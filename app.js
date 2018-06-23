@@ -42,7 +42,7 @@ client.on('message', msg => {
         Will respond to the user with various statistics about the hardware.
     */
     if (msg.content === '?hwstats') {
-        if(msg.author.id === process.env.ownerId) {
+        if(msg.author.id !== undefined) {
             osutils.cpuUsage((v) => {
 		let usedMem = os.freemem() / 1000000;
 		let totalMem = os.totalmem() / 1000000;
