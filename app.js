@@ -8,12 +8,31 @@ const osutils = require('os-utils');
 
 client.on('message', msg => {
 
+	/*
+		Ignore messages from bots
+		It's possible for bots to go back and forth with each other. It's best to not engage with other bots.
+	*/
+	if(msg.author.bot) return;
+
     /*
         ?ping command
         Will respond to the user with the message "Pong!" - this is useful to confirm whether the bot is working properly or not :)
     */
     if (msg.content === '?ping') {
         msg.reply('Pong!');
+	}
+
+	/*
+		?say command
+		Make the bot say a string of text provided by the bot owner.
+	*/
+	if (msg.content.substring(0, 3) === '?say') {
+		if(msg.author.id !== process.env.ownerId) {
+			msg.delete()
+  				.then(msg => console.log(`Deleted message from ${msg.author.username}`))
+  				.catch(console.error);
+			client.channels.get(msg.channel.id).send(msg.content.substring(4));
+		}
 	}
 	
 	/*
