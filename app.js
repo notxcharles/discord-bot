@@ -24,6 +24,19 @@ client.on('message', msg => {
 		msg.reply('https://i.imgur.com/0qZGhaD.jpg');
 	}
 
+	/*
+		?sexyman
+		Command requested by Каппа#7296
+	*/
+	if (msg.content === '?sexyman') {
+		client.channels.get(msg.channel).send(`https://i.imgur.com/YNqBodQ.png`);
+	}
+
+	/*
+		?help
+		Will send information in the chat to help the user use the bot
+	*/
+
     /*
         ?hwstats
         Will respond to the user with various statistics about the hardware.
