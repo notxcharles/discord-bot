@@ -14,7 +14,15 @@ client.on('message', msg => {
     */
     if (msg.content === '?ping') {
         msg.reply('Pong!');
-    }
+	}
+	
+	/*
+		?harambe
+		Sends a picture to the chat with a picture of Harambe.
+	*/
+	if (msg.content === '?harambe') {
+		msg.reply('https://i.imgur.com/0qZGhaD.jpg');
+	}
 
     /*
         ?hwstats
