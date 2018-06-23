@@ -23,6 +23,36 @@ client.on('message', msg => {
 	}
 
 	/*
+		?mute command
+		This command will mute a user by adding a special role.
+	*/
+	if (msg.content.substring(0, 5) === '?mute') {
+		if (msg.member.roles.has(msg.guild.roles.find("name", "Staff").id)){
+			// Get member id from msg.content.substring(6)
+			// Test Case: msg.reply('"' + msg.content.substring(6) + '"');
+			//msg.channel.send('');
+			//.mentions.members.first()
+			msg.mentions.members.first().addRole(msg.guild.roles.find("name", "muted"));
+
+		} else {
+			msg.member.addRole(msg.guild.roles.find("name", "muted").user.username);
+			msg.reply("You are not Staff so you can be muted for that instead!");
+		}
+	}
+
+	/*
+		?unmute command
+		This command will unmute a user by removing a special role.
+	*/
+        if (msg.content.substring(0, 7) === '?unmute') {
+                if (msg.member.roles.has(msg.guild.roles.find("name", "Staff").id)){
+                        msg.reply("User muted!");
+                } else {
+                        msg.reply("You must have the Staff role to mute a member!");
+                }
+        }
+
+	/*
 		?say command
 		Make the bot say a string of text provided by the bot owner.
 	*/
