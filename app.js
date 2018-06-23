@@ -1,5 +1,5 @@
-require("babel-register");
 require('dotenv').config();
+require("babel-register");
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const mongoose = require('mongoose');
