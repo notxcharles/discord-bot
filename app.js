@@ -26,16 +26,19 @@ client.on('message', msg => {
 		?say command
 		Make the bot say a string of text provided by the bot owner.
 	*/
-	if (msg.content.substring(0, 3) === '?say') {
-		if(msg.author.id !== process.env.ownerId) {
-			client.channels.get(msg.channel.id).send(msg.content.substring(4))
-			.then(
-				msg.delete()
-					.then(msg => console.log(`Deleted message from ${msg.author.username}`))
-					.catch(console.error));
+	if (msg.content.substring(0, 4) === '?say') {
+		if(msg.author.id === process.env.ownerId) {
+			msg.channel.send(msg.content.substring(5))
+				.then(
+					response => {
+						msg.delete(100)
+							.then(msg => console.log(`Deleted message from ${msg.author.username}`))
+							.catch(console.error)
+					}
+				)
 		}
 	}
-	
+
 	/*
 		?harambe
 		Sends a picture to the chat with a picture of Harambe.
