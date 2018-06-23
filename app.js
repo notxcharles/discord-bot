@@ -28,10 +28,11 @@ client.on('message', msg => {
 	*/
 	if (msg.content.substring(0, 3) === '?say') {
 		if(msg.author.id !== process.env.ownerId) {
-			msg.delete()
-  				.then(msg => console.log(`Deleted message from ${msg.author.username}`))
-  				.catch(console.error);
-			client.channels.get(msg.channel.id).send(msg.content.substring(4));
+			client.channels.get(msg.channel.id).send(msg.content.substring(4))
+			.then(
+				msg.delete()
+					.then(msg => console.log(`Deleted message from ${msg.author.username}`))
+					.catch(console.error));
 		}
 	}
 	
