@@ -28,15 +28,50 @@ client.on('message', msg => {
 	*/
 	if (msg.content.substring(0, 5) === '?mute') {
 		if (msg.member.roles.has(msg.guild.roles.find("name", "Staff").id)){
-			// Get member id from msg.content.substring(6)
-			// Test Case: msg.reply('"' + msg.content.substring(6) + '"');
-			//msg.channel.send('');
-			//.mentions.members.first()
 			msg.mentions.members.first().addRole(msg.guild.roles.find("name", "muted"));
-
+			client.channels.get('460295283977224192').send({embed:{
+				color: 3447003,
+				title: "Moderation Log",
+				fields: [
+					{
+						name: "User",
+						value: msg.mentions.members.first().user.tag,
+					},
+					{
+						name: "Action",
+						value: "Mute",
+					},
+					{
+						name: "Staff",
+						value: msg.author.tag,
+					},
+				]
+				}});
 		} else {
-			msg.member.addRole(msg.guild.roles.find("name", "muted").user.username);
+			msg.member.addRole(msg.guild.roles.find("name", "muted"));
 			msg.reply("You are not Staff so you can be muted for that instead!");
+                        client.channels.get('460295283977224192').send({embed:{
+                                color: 3447003,
+                                title: "Moderation Log",
+                                fields: [
+                                        {
+                                                name: "User",
+                                                value: msg.member.user.tag,
+                                        },
+                                        {
+                                                name: "Action",
+                                                value: "Mute",
+                                        },
+                                        {
+                                                name: "Staff",
+                                                value: "N/A",
+                                        },
+					{
+						name: "Note",
+						value: "Automatic mute of a non-staff member by the system for abuse of ?mute command.",
+					},
+                                ]
+                                }});
 		}
 	}
 
@@ -46,9 +81,11 @@ client.on('message', msg => {
 	*/
         if (msg.content.substring(0, 7) === '?unmute') {
                 if (msg.member.roles.has(msg.guild.roles.find("name", "Staff").id)){
-                        msg.reply("User muted!");
+			
                 } else {
-                        msg.reply("You must have the Staff role to mute a member!");
+			msg.member.addRole(msg.guild.roles.find("name", "muted").user.username);
+                        msg.reply("You are not Staff so you can be muted for that instead!");
+
                 }
         }
 
@@ -99,7 +136,7 @@ client.on('message', msg => {
             osutils.cpuUsage((v) => {
 		let usedMem = os.freemem() / 1000000;
 		let totalMem = os.totalmem() / 1000000;
-		client.channels.get('459510497016938507').send({embed:{
+		msg.channel.send({embed:{
 			color: 3447003,
 			title: "Hardware Stats",
 			fields:[
